@@ -10,7 +10,6 @@ import UIKit
 import os.log
 
 //Receiving
-
 protocol  ProtocolFoodView {
     func Results(valuesSent: Food?,action: String?, Unique: Bool)
 }
@@ -226,4 +225,3 @@ class FoodViewController: UIViewController , UITextFieldDelegate, UIImagePickerC
         }
     }
 }
-

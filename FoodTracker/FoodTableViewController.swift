@@ -15,8 +15,6 @@ class FoodTableViewController: UITableViewController ,ProtocolFoodView{
     var FoodsH = [Food]()
     var CurrentState: String = ""
     
-    
-    
     //Incoming info from History table
     func Sending(valuesSent: Food?, action: String?) {
         
@@ -82,13 +80,11 @@ class FoodTableViewController: UITableViewController ,ProtocolFoodView{
         return Foods.count
     }
 
-
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellIdentifier = "MealTableViewCell"
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? MealTableViewCell else{
             fatalError("The deque cell failed")
         }
-        
         let food = Foods[indexPath.row]
         cell.nameLabel.text = food.name
         cell.photoImageView.image = food.photo
@@ -100,6 +96,7 @@ class FoodTableViewController: UITableViewController ,ProtocolFoodView{
         
         return cell
     }
+    
     //Data Forward
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "AddItem"{
@@ -135,15 +132,12 @@ class FoodTableViewController: UITableViewController ,ProtocolFoodView{
             }
         }
     }
- 
     
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
         return true
     }
-    
-
     
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
@@ -155,7 +149,6 @@ class FoodTableViewController: UITableViewController ,ProtocolFoodView{
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
     }
-
     
     // Override to support rearranging the table view.
     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
@@ -165,14 +158,11 @@ class FoodTableViewController: UITableViewController ,ProtocolFoodView{
         super.tableView.moveRow(at: fromIndexPath, to: to)
     }
     
-
-    
     // Override to support conditional rearranging of the table view.
     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the item to be re-orderable.
         return true
     }
- 
 
     /*
     // MARK: - Navigation
