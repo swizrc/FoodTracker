@@ -204,6 +204,7 @@ class FoodViewController: UIViewController , UITextFieldDelegate, UIImagePickerC
                 if name.uppercased() == Food.name.uppercased() || !(AddToHist!)
                 {
                     Unique = false
+                    break
                 }
             }
             if Unique == true{
