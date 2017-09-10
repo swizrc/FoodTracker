@@ -28,6 +28,7 @@ class FoodTableViewController: UITableViewController ,ProtocolFoodView{
             if Unique == true{
                 FoodsH.insert(valuesSent!, at: 0)
             }
+            saveFoods()
         }
         else if valuesSent != nil && action == "ShowDetail"
         {
@@ -37,6 +38,7 @@ class FoodTableViewController: UITableViewController ,ProtocolFoodView{
             if Unique == true{
                 FoodsH.insert(valuesSent!, at: 0)
             }
+            saveFoods()
         }
     }
     
@@ -60,9 +62,13 @@ class FoodTableViewController: UITableViewController ,ProtocolFoodView{
         super.viewDidLoad()
         navigationItem.leftBarButtonItem = editButtonItem
         editButtonItem.title = "Edit"
-        loadSampleFood()
         navigationItem.title = "Main Food List"
-
+        if let savedFoods = loadFoods(){
+            Foods += savedFoods
+        }
+        else{
+            loadSampleFood()
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -164,6 +170,13 @@ class FoodTableViewController: UITableViewController ,ProtocolFoodView{
         return true
     }
 
+    private func saveFoods(){
+        NSKeyedArchiver.archiveRootObject(Foods, toFile: Food.ArchiveURL.path + "\\1")
+    }
+    
+    private func loadFoods() -> [Food]?{
+        return NSKeyedUnarchiver.unarchiveObject(withFile: Food.ArchiveURL.path + "\\1") as? [Food]
+    }
     /*
     // MARK: - Navigation
 

@@ -127,22 +127,8 @@ class FoodViewController: UIViewController , UITextFieldDelegate, UIImagePickerC
          }
     }
     
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        dismiss(animated: true, completion: nil)
-    }
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        guard let selectedImage = info[UIImagePickerControllerOriginalImage] as? UIImage else{
-            fatalError("Expected a dictionary containing an image, but was provided the following: \(info)")
-        }
-        
-        imageJessMe.image = selectedImage
-        
-        
-        dismiss(animated: true, completion: nil)
-        
-    }
-    
+
+
     func textFieldDidBeginEditing(_ textField: UITextField) {
         //saveButton.isEnabled = false
     }
@@ -159,13 +145,26 @@ class FoodViewController: UIViewController , UITextFieldDelegate, UIImagePickerC
         FoodHistoryTableViewController?.FoodsH = FoodsH
     }
     
-    //Mark Actions
-
+    //Photo Selection Handling
     @IBAction func selecImageFromPhotoLibrary(_ sender: UITapGestureRecognizer) {
         nameTextField.resignFirstResponder()
         let imagePickerController = UIImagePickerController()
+        imagePickerController.sourceType = .savedPhotosAlbum
         imagePickerController.delegate = self
         present(imagePickerController,animated: true,completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        guard let selectedImage = info[UIImagePickerControllerOriginalImage] as? UIImage else{
+            fatalError("Expected a dictionary containing an image, but was provided the following: \(info)")
+        }
+        
+        imageJessMe.image = selectedImage
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
     }
     
     @IBAction func HistSwitchPressed(_ sender: UISwitch) {

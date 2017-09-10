@@ -9,7 +9,7 @@
 import UIKit
 
 class FoodHistoryTableViewCell: UITableViewCell {
-
+    
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var calorieLabel: UILabel!
     @IBOutlet weak var proteinLabel: UILabel!
