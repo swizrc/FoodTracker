@@ -340,7 +340,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </toolbar>
                     <connections>
-                        <segue destination="Cu7-mq-Gm8" kind="relationship" relationship="rootViewController" id="aL1-Ig-mA3"/>
+                        <segue destination="qfe-vc-exP" kind="relationship" relationship="rootViewController" id="S3K-iZ-HZy"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c6j-0s-x6e" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -352,7 +352,7 @@
             <objects>
                 <tableViewController id="qfe-vc-exP" customClass="UserTableViewController" customModule="FoodTracker" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="259" sectionHeaderHeight="28" sectionFooterHeight="28" id="pc9-tn-uog">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -360,15 +360,12 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="259"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nwK-S4-dVn" id="R55-ao-K4Y">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="258"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="259"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fd0-fQ-3oo">
                                             <rect key="frame" x="75" y="27" width="224" height="139"/>
                                             <gestureRecognizers/>
-                                            <connections>
-                                                <outletCollection property="gestureRecognizers" destination="DrF-uH-ZRi" appends="YES" id="oaJ-Jv-neW"/>
-                                            </connections>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p4s-Oe-vQC">
                                             <rect key="frame" x="8" y="189" width="359" height="21"/>
@@ -402,14 +399,10 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="XWH-U8-7Jq"/>
-                    <connections>
-                        <outlet property="selectImageFromPhotoLibrary" destination="DrF-uH-ZRi" id="gq5-jB-L5k"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kMU-G9-eTL" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="DrF-uH-ZRi"/>
             </objects>
-            <point key="canvasLocation" x="-1332" y="-609.44527736131943"/>
+            <point key="canvasLocation" x="-1601" y="-358"/>
         </scene>
         <!--Date Table View Controller-->
         <scene sceneID="LhB-LO-GXj">
@@ -594,6 +587,5 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="ih1-Or-7Xb"/>
-        <segue reference="DAj-mT-SXC"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		4ED3341D1F6305D30093AFFE /* DateTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED3341C1F6305D30093AFFE /* DateTableViewController.swift */; };
 		4ED3341F1F6306800093AFFE /* DateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED3341E1F6306800093AFFE /* DateTableViewCell.swift */; };
+		4EDDFBA61F65B2C40013599E /* UserIdentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDDFBA51F65B2C40013599E /* UserIdentData.swift */; };
+		4EDDFBA81F65BE840013599E /* DateData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDDFBA71F65BE840013599E /* DateData.swift */; };
 		4EDFC6151F6455FB001B3A0E /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDFC6141F6455FB001B3A0E /* UserTableViewCell.swift */; };
 		4EDFC6171F646301001B3A0E /* UserTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDFC6161F646301001B3A0E /* UserTableViewController.swift */; };
 		4EDFC63D1F647219001B3A0E /* FoodTracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4EDFC63B1F647219001B3A0E /* FoodTracker.xcdatamodeld */; };
@@ -45,6 +47,8 @@
 /* Begin PBXFileReference section */
 		4ED3341C1F6305D30093AFFE /* DateTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateTableViewController.swift; sourceTree = "<group>"; };
 		4ED3341E1F6306800093AFFE /* DateTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateTableViewCell.swift; sourceTree = "<group>"; };
+		4EDDFBA51F65B2C40013599E /* UserIdentData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserIdentData.swift; sourceTree = "<group>"; };
+		4EDDFBA71F65BE840013599E /* DateData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateData.swift; sourceTree = "<group>"; };
 		4EDFC6141F6455FB001B3A0E /* UserTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
 		4EDFC6161F646301001B3A0E /* UserTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTableViewController.swift; sourceTree = "<group>"; };
 		4EDFC63C1F647219001B3A0E /* FoodTracker.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FoodTracker.xcdatamodel; sourceTree = "<group>"; };
@@ -122,6 +126,8 @@
 				4EE91BB81F3E4D2000BD8CC7 /* Main.storyboard */,
 				4EDFC6161F646301001B3A0E /* UserTableViewController.swift */,
 				4EDFC6141F6455FB001B3A0E /* UserTableViewCell.swift */,
+				4EDDFBA51F65B2C40013599E /* UserIdentData.swift */,
+				4EDDFBA71F65BE840013599E /* DateData.swift */,
 				4ED3341C1F6305D30093AFFE /* DateTableViewController.swift */,
 				4ED3341E1F6306800093AFFE /* DateTableViewCell.swift */,
 				4EEBA1741F3FD6930052C7A1 /* FoodTableViewController.swift */,
@@ -290,6 +296,8 @@
 				4EE91BB71F3E4D2000BD8CC7 /* FoodViewController.swift in Sources */,
 				4EEBD4F61F3FCA0900D07117 /* Food.swift in Sources */,
 				4EDFC63D1F647219001B3A0E /* FoodTracker.xcdatamodeld in Sources */,
+				4EDDFBA61F65B2C40013599E /* UserIdentData.swift in Sources */,
+				4EDDFBA81F65BE840013599E /* DateData.swift in Sources */,
 				4ED3341F1F6306800093AFFE /* DateTableViewCell.swift in Sources */,
 				4EDFC6151F6455FB001B3A0E /* UserTableViewCell.swift in Sources */,
 				4EEBA1751F3FD6930052C7A1 /* FoodTableViewController.swift in Sources */,

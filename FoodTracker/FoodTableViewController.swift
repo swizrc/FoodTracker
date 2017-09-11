@@ -14,6 +14,7 @@ class FoodTableViewController: UITableViewController ,ProtocolFoodView{
     var Foods = [Food]()
     var FoodsH = [Food]()
     var CurrentState: String = ""
+    let Extension: String = "\\1"
     
     //Incoming info from History table
     func Sending(valuesSent: Food?, action: String?) {
@@ -171,11 +172,11 @@ class FoodTableViewController: UITableViewController ,ProtocolFoodView{
     }
 
     private func saveFoods(){
-        NSKeyedArchiver.archiveRootObject(Foods, toFile: Food.ArchiveURL.path + "\\1")
+        NSKeyedArchiver.archiveRootObject(Foods, toFile: Food.ArchiveURL.path + Extension)
     }
     
     private func loadFoods() -> [Food]?{
-        return NSKeyedUnarchiver.unarchiveObject(withFile: Food.ArchiveURL.path + "\\1") as? [Food]
+        return NSKeyedUnarchiver.unarchiveObject(withFile: Food.ArchiveURL.path + Extension) as? [Food]
     }
     /*
     // MARK: - Navigation

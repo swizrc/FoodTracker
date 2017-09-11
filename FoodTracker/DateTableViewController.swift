@@ -10,11 +10,13 @@ import UIKit
 
 class DateTableViewController: UITableViewController {
     
+    
     var Dates: [String] = []
     let dateComponents = NSDateComponents()
     let currentRawDate = NSDate()
     let dateFormatter = DateFormatter()
     var currentDate = ""
+    var userName: String = ""
     
     
     override func viewDidLoad() {
@@ -55,7 +57,6 @@ class DateTableViewController: UITableViewController {
         let cellIdentifier = "DateTableViewCell"
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as!DateTableViewCell
         let date = Dates[indexPath.row]
-        //Formatting
         cell.dateLabel.text = date
 
         return cell
