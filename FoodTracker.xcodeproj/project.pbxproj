@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4E2664AB1F697ED3009E5621 /* UserDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2664AA1F697ED3009E5621 /* UserDetailViewController.swift */; };
 		4ED3341D1F6305D30093AFFE /* DateTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED3341C1F6305D30093AFFE /* DateTableViewController.swift */; };
 		4ED3341F1F6306800093AFFE /* DateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED3341E1F6306800093AFFE /* DateTableViewCell.swift */; };
 		4EDDFBA61F65B2C40013599E /* UserIdentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDDFBA51F65B2C40013599E /* UserIdentData.swift */; };
@@ -45,6 +46,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4E2664AA1F697ED3009E5621 /* UserDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDetailViewController.swift; sourceTree = "<group>"; };
 		4ED3341C1F6305D30093AFFE /* DateTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateTableViewController.swift; sourceTree = "<group>"; };
 		4ED3341E1F6306800093AFFE /* DateTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateTableViewCell.swift; sourceTree = "<group>"; };
 		4EDDFBA51F65B2C40013599E /* UserIdentData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserIdentData.swift; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 				4EEBD4F51F3FCA0900D07117 /* Food.swift */,
 				4EE91BB61F3E4D2000BD8CC7 /* FoodViewController.swift */,
 				4EE91BB81F3E4D2000BD8CC7 /* Main.storyboard */,
+				4E2664AA1F697ED3009E5621 /* UserDetailViewController.swift */,
 				4EDFC6161F646301001B3A0E /* UserTableViewController.swift */,
 				4EDFC6141F6455FB001B3A0E /* UserTableViewCell.swift */,
 				4EDDFBA51F65B2C40013599E /* UserIdentData.swift */,
@@ -303,6 +306,7 @@
 				4EEBA1751F3FD6930052C7A1 /* FoodTableViewController.swift in Sources */,
 				4EFF14D51F50A88500ABEE10 /* FoodHistoryTableViewCell.swift in Sources */,
 				4ED3341D1F6305D30093AFFE /* DateTableViewController.swift in Sources */,
+				4E2664AB1F697ED3009E5621 /* UserDetailViewController.swift in Sources */,
 				4EDFC6171F646301001B3A0E /* UserTableViewController.swift in Sources */,
 				4EEBC0711F49FCF90064E18F /* FoodHistoryTableViewController.swift in Sources */,
 				4EE91BB51F3E4D2000BD8CC7 /* AppDelegate.swift in Sources */,
