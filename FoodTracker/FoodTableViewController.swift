@@ -13,8 +13,26 @@ import UIKit
 class FoodTableViewController: UITableViewController ,ProtocolFoodView{
     var Foods = [Food]()
     var FoodsH = [Food]()
-    var CurrentState: String = ""
-    let Extension: String = "\\1"
+    var UserLoc: String = ""
+    var DateLoc: String = ""
+    var DynamicDirectoryURL: String = ""
+    var DirectoryURL: String = ""
+    var dateasString: String = ""
+    let dateFormatter = DateFormatter()
+
+    @IBOutlet weak var totalProteinLabel: UILabel!
+    @IBOutlet weak var totalCalorieLabel: UILabel!
+    
+    private func updateTotalBar(){
+        var totalCal:Int = 0
+        var totalPro:Int = 0
+        for food in Foods{
+            totalCal += (food.calories * food.quantity)
+            totalPro += (food.protein * food.quantity)
+        }
+        totalProteinLabel.text = String(totalPro)
+        totalCalorieLabel.text = String(totalCal)
+    }
     
     //Incoming info from History table
     func Sending(valuesSent: Food?, action: String?) {
@@ -61,22 +79,34 @@ class FoodTableViewController: UITableViewController ,ProtocolFoodView{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.leftBarButtonItem = editButtonItem
-        editButtonItem.title = "Edit"
-        navigationItem.title = "Main Food List"
+        navigationController?.isToolbarHidden = true
+        dateasString = DateLoc
+        dateFormatter.dateFormat = "EEE. dd MMMM, yyyy"
+        let newDate = dateFormatter.date(from: dateasString)
+        dateFormatter.dateFormat = "MMM d, yyyy"
+        let dateString = dateFormatter.string(from: newDate!)
+        navigationItem.rightBarButtonItems?.append(editButtonItem)
+        navigationItem.title = "Food for ".appending(dateString)
+        DynamicDirectoryURL = DynamicDirectoryURL.appending("\\".appending("FoodTracker"))
+        DynamicDirectoryURL = DynamicDirectoryURL.appending("\\".appending(UserLoc))
+        DynamicDirectoryURL = DynamicDirectoryURL.appending("\\".appending(DateLoc))
+        DynamicDirectoryURL = DynamicDirectoryURL.appending("\\Foods")
+        DirectoryURL = Food.DocumentsDirectory.path.appending(DynamicDirectoryURL)
+        
+        //([Food.DocumentsDirectory,"\\","FoodTracker","\\",UserLoc,"\\",DateLoc,"\\","Foods"])
         if let savedFoods = loadFoods(){
             Foods += savedFoods
         }
         else{
             loadSampleFood()
         }
+        updateTotalBar()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -100,6 +130,7 @@ class FoodTableViewController: UITableViewController ,ProtocolFoodView{
         cell.quantityLabel.text = "Quantity: x" + String(food.quantity)
         cell.servingquantityLabel.text = "Serving:   " + String(food.serving_quantity)
         cell.servingunitLabel.text = food.serving_unit
+        updateTotalBar()
         
         return cell
     }
@@ -152,6 +183,8 @@ class FoodTableViewController: UITableViewController ,ProtocolFoodView{
             // Delete the row from the data source
             Foods.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
+            saveFoods()
+            updateTotalBar()
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
@@ -163,6 +196,7 @@ class FoodTableViewController: UITableViewController ,ProtocolFoodView{
         Foods.remove(at: fromIndexPath.row)
         Foods.insert(temp_Food, at: to.row)
         super.tableView.moveRow(at: fromIndexPath, to: to)
+        saveFoods()
     }
     
     // Override to support conditional rearranging of the table view.
@@ -172,20 +206,27 @@ class FoodTableViewController: UITableViewController ,ProtocolFoodView{
     }
 
     private func saveFoods(){
-        NSKeyedArchiver.archiveRootObject(Foods, toFile: Food.ArchiveURL.path + Extension)
+        NSKeyedArchiver.archiveRootObject(Foods, toFile: DirectoryURL)
     }
     
     private func loadFoods() -> [Food]?{
-        return NSKeyedUnarchiver.unarchiveObject(withFile: Food.ArchiveURL.path + Extension) as? [Food]
+        return NSKeyedUnarchiver.unarchiveObject(withFile: DirectoryURL) as? [Food]
     }
+    
+    private func saveFoodsH(){
+        NSKeyedArchiver.archiveRootObject(FoodsH, toFile: DirectoryURL)
+    }
+    
+    private func loadFoodsH() -> [Food]?{
+        return NSKeyedUnarchiver.unarchiveObject(withFile: DirectoryURL) as? [Food]
+    }
+    
     /*
     // MARK: - Navigation
-
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
     }
     */
-
 }

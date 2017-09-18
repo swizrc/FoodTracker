@@ -15,18 +15,25 @@ class DateData: NSObject, NSCoding{
     var currentDate = ""
     var userName: String = ""
     
-    init(date: String){
+    static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
+    
+    init(date: String, userName: String){
         dateFormatter.dateFormat = "EEE. dd MMMM, yyyy"
         if date == ""{
             currentDate = dateFormatter.string(from: currentRawDate as Date)
         }
         self.date = date
+        self.userName = userName
     }
+    
     func encode(with aCoder: NSCoder) {
         aCoder.encode(date, forKey: "date")
+        aCoder.encode(userName, forKey: "userName")
     }
+    
     required convenience init?(coder aDecoder: NSCoder){
         let date = aDecoder.decodeObject(forKey: "date") as! String
-        self.init(date: date)
+        let userName = aDecoder.decodeObject(forKey: "userName") as! String
+        self.init(date: date, userName: userName)
     }
 }

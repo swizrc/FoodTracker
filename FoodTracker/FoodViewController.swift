@@ -127,12 +127,6 @@ class FoodViewController: UIViewController , UITextFieldDelegate, UIImagePickerC
          }
     }
     
-
-
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        //saveButton.isEnabled = false
-    }
-    
     //Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
         let FoodHistoryTableViewController = segue.destination as? FoodHistoryTableViewController
@@ -170,12 +164,10 @@ class FoodViewController: UIViewController , UITextFieldDelegate, UIImagePickerC
     @IBAction func HistSwitchPressed(_ sender: UISwitch) {
         if sender.isOn{
             AddToHist = true
-            switchLabel.text = "On"
         }
         else
         {
             AddToHist = false
-            switchLabel.text = "Off"
         }
     }
 

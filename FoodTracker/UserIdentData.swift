@@ -12,7 +12,6 @@ class UserIdentData: NSObject, NSCoding{
     var userPic: UIImage?
     
     static let DocumentsDirectory = FileManager().urls(for: .documentDirectory,in: .userDomainMask).first!
-    static let ArchiveURL = DocumentsDirectory.appendingPathComponent("users")
     
     init?(user:String,userPic:UIImage?){
         if user == ""{

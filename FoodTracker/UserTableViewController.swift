@@ -11,12 +11,18 @@ import UIKit
 class UserTableViewController: UITableViewController {
     
     var UserData = [UserIdentData]()
+    let DirectoryURL = UserIdentData.DocumentsDirectory.path.appending("\\FoodTracker")
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.rightBarButtonItem = self.editButtonItem
         self.navigationItem.title = "Select a User"
-        loadSampleUser()
+        if let loadedUsers = loadUsers(){
+            UserData = loadedUsers
+        }
+        if UserData.isEmpty{
+            self.performSegue(withIdentifier:"NewUser", sender: self)
+        }
         SortUsers()
     }
     
@@ -34,7 +40,7 @@ class UserTableViewController: UITableViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-
+    
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -56,7 +62,6 @@ class UserTableViewController: UITableViewController {
         return cell
     }
     
-    
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
@@ -69,6 +74,7 @@ class UserTableViewController: UITableViewController {
             {
                 UserData.remove(at: indexPath.row)
                 tableView.deleteRows(at: [indexPath], with: .fade)
+                saveUsers()
             }
             else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
@@ -88,9 +94,8 @@ class UserTableViewController: UITableViewController {
         UserData.append(newUser)
         SortUsers()
         let newIndex = UserData.index(of: newUser)
-        
-        
         tableView.insertRows(at: [IndexPath(row:newIndex!,section:0)], with: .automatic)
+        saveUsers()
     }
     
     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
@@ -98,9 +103,8 @@ class UserTableViewController: UITableViewController {
         UserData.remove(at: fromIndexPath.row)
         UserData.insert(temp_User, at: to.row)
         super.tableView.moveRow(at: fromIndexPath, to: to)
+        saveUsers()
     }
- 
-
     
     // Override to support conditional rearranging of the table view.
     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
@@ -108,18 +112,29 @@ class UserTableViewController: UITableViewController {
         return false
     }
  
-
-    
     // MARK: - Navigation
-
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
         if let newViewController = segue.destination as? UserDetailViewController{
             newViewController.UserData = UserData
+            saveUsers()
         }
-        // Pass the selected object to the new view controller.
+        else if let DateViewController = segue.destination as? DateTableViewController{
+            let selectedUserCell = sender as? UserTableViewCell
+            let indexPath = tableView.indexPath(for: selectedUserCell!)
+            DateViewController.userName = UserData[indexPath!.row].user
+            saveUsers()
+        }
     }
     
+    private func saveUsers()
+    {
+        NSKeyedArchiver.archiveRootObject(UserData, toFile: DirectoryURL)
+    }
+    
+    private func loadUsers() -> [UserIdentData]?
+    {
+        return NSKeyedUnarchiver.unarchiveObject(withFile: DirectoryURL) as? [UserIdentData]
+    }
 
 }
