@@ -47,6 +47,7 @@ class FoodViewController: UIViewController , UITextFieldDelegate, UIImagePickerC
     var FoodsH = [Food]()
     var Unique: Bool = true
     var AddToHist: Bool?
+    var formattedDate: String = ""
     
     func HideHist(){
         switchLabel.isHidden = true
@@ -132,9 +133,11 @@ class FoodViewController: UIViewController , UITextFieldDelegate, UIImagePickerC
         let FoodHistoryTableViewController = segue.destination as? FoodHistoryTableViewController
         if ActionIdent == "AddItem"{
             FoodHistoryTableViewController?.Action = ActionIdent!
+            FoodHistoryTableViewController?.Date = formattedDate
         }
         if ActionIdent == "ShowDetail"{
             FoodHistoryTableViewController?.Action = ActionIdent!
+            FoodHistoryTableViewController?.Date = formattedDate
         }
         FoodHistoryTableViewController?.FoodsH = FoodsH
     }

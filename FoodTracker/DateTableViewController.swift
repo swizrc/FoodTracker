@@ -24,12 +24,13 @@ class DateTableViewController: UITableViewController {
         super.viewDidLoad()
         self.navigationItem.rightBarButtonItem = self.editButtonItem
         self.navigationItem.title = "Select a Date"
+        DirectoryURL = DirectoryURL.appending("\\".appending(userName))
         if let loadedDates = loadDates(){
             Dates = loadedDates
         }
         dateFormatter.dateFormat = "EEE. dd MMMM, yyyy"
         currentDate = dateFormatter.string(from: currentRawDate as Date)
-        DirectoryURL = DirectoryURL.appending("\\".appending(userName))
+        
         for date in Dates{
             if date.date == currentDate{
                 Containing = true

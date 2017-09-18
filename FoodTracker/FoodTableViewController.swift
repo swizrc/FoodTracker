@@ -148,6 +148,7 @@ class FoodTableViewController: UITableViewController ,ProtocolFoodView{
             FoodViewController.delegate = self
             FoodViewController.ActionIdent = segue.identifier
             FoodViewController.FoodsH = FoodsH
+            navigationController?.isToolbarHidden = false
         }
         else if segue.identifier == "ShowDetail"
         {
@@ -160,9 +161,7 @@ class FoodTableViewController: UITableViewController ,ProtocolFoodView{
             FoodDetailViewController!.food = selectedFood
             FoodDetailViewController!.ActionIdent = segue.identifier
             FoodDetailViewController?.FoodsH = FoodsH
-        }
-        else if let FoodHist = segue.destination as? FoodHistoryTableViewController{
-            FoodHist.Date = formattedDate
+            navigationController?.isToolbarHidden = false
         }
     }
     

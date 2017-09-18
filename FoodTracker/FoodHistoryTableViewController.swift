@@ -101,7 +101,7 @@ class FoodHistoryTableViewController: UITableViewController {
     }
     //Outoing information
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if Action == "AddItem" || Action == "ShowDetail"{//AddItem or ShowDetail
+        if Action == "AddItem" || Action == "ShowDetail"{
             let FoodViewController: FoodViewController = segue.destination as! FoodViewController
             let selectedMealCell = sender as? FoodHistoryTableViewCell
             let indexPath = tableView.indexPath(for: selectedMealCell!)
