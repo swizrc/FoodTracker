@@ -16,6 +16,7 @@ protocol ProtocolHistoryView{
 class FoodHistoryTableViewController: UITableViewController {
     var FoodsH = [Food]()
     var delegate:ProtocolHistoryView?
+    var Date: String = ""
     
     var Action: String = ""
     
@@ -87,6 +88,7 @@ class FoodHistoryTableViewController: UITableViewController {
         }
         
         let food = FoodsH[indexPath.row]
+        cell.dateLabel.text = Date
         cell.nameLabel.text = food.name
         cell.photoImageView.image = food.photo
         cell.calorieLabel.text = String(food.calories)

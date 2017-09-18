@@ -19,6 +19,7 @@ class FoodTableViewController: UITableViewController ,ProtocolFoodView{
     var DirectoryURL: String = ""
     var dateasString: String = ""
     let dateFormatter = DateFormatter()
+    var formattedDate: String = ""
 
     @IBOutlet weak var totalProteinLabel: UILabel!
     @IBOutlet weak var totalCalorieLabel: UILabel!
@@ -46,6 +47,7 @@ class FoodTableViewController: UITableViewController ,ProtocolFoodView{
             tableView.insertRows(at: [newIndexPath], with: .automatic)
             if Unique == true{
                 FoodsH.insert(valuesSent!, at: 0)
+                saveFoodsH()
             }
             saveFoods()
         }
@@ -56,6 +58,7 @@ class FoodTableViewController: UITableViewController ,ProtocolFoodView{
             tableView.reloadRows(at: [selectedIndexPath!], with: .none)
             if Unique == true{
                 FoodsH.insert(valuesSent!, at: 0)
+                saveFoodsH()
             }
             saveFoods()
         }
@@ -84,9 +87,9 @@ class FoodTableViewController: UITableViewController ,ProtocolFoodView{
         dateFormatter.dateFormat = "EEE. dd MMMM, yyyy"
         let newDate = dateFormatter.date(from: dateasString)
         dateFormatter.dateFormat = "MMM d, yyyy"
-        let dateString = dateFormatter.string(from: newDate!)
+        formattedDate = dateFormatter.string(from: newDate!)
         navigationItem.rightBarButtonItems?.append(editButtonItem)
-        navigationItem.title = "Food for ".appending(dateString)
+        navigationItem.title = "Food for ".appending(formattedDate)
         DynamicDirectoryURL = DynamicDirectoryURL.appending("\\".appending("FoodTracker"))
         DynamicDirectoryURL = DynamicDirectoryURL.appending("\\".appending(UserLoc))
         DynamicDirectoryURL = DynamicDirectoryURL.appending("\\".appending(DateLoc))
@@ -99,6 +102,9 @@ class FoodTableViewController: UITableViewController ,ProtocolFoodView{
         }
         else{
             loadSampleFood()
+        }
+        if let savedFoodsH = loadFoodsH(){
+            FoodsH = savedFoodsH
         }
         updateTotalBar()
     }
@@ -155,6 +161,9 @@ class FoodTableViewController: UITableViewController ,ProtocolFoodView{
             FoodDetailViewController!.ActionIdent = segue.identifier
             FoodDetailViewController?.FoodsH = FoodsH
         }
+        else if let FoodHist = segue.destination as? FoodHistoryTableViewController{
+            FoodHist.Date = formattedDate
+        }
     }
     
     @IBAction func unwindToFoodList(sender: UIStoryboardSegue){
@@ -184,6 +193,7 @@ class FoodTableViewController: UITableViewController ,ProtocolFoodView{
             Foods.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
             saveFoods()
+            saveFoodsH()
             updateTotalBar()
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
@@ -197,6 +207,7 @@ class FoodTableViewController: UITableViewController ,ProtocolFoodView{
         Foods.insert(temp_Food, at: to.row)
         super.tableView.moveRow(at: fromIndexPath, to: to)
         saveFoods()
+        saveFoodsH()
     }
     
     // Override to support conditional rearranging of the table view.
@@ -214,19 +225,11 @@ class FoodTableViewController: UITableViewController ,ProtocolFoodView{
     }
     
     private func saveFoodsH(){
-        NSKeyedArchiver.archiveRootObject(FoodsH, toFile: DirectoryURL)
+        NSKeyedArchiver.archiveRootObject(FoodsH, toFile: DirectoryURL.appending("\\FoodsH"))
     }
     
     private func loadFoodsH() -> [Food]?{
-        return NSKeyedUnarchiver.unarchiveObject(withFile: DirectoryURL) as? [Food]
+        return NSKeyedUnarchiver.unarchiveObject(withFile: DirectoryURL.appending("\\FoodsH")) as? [Food]
     }
     
-    /*
-    // MARK: - Navigation
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 }
