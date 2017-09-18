@@ -82,7 +82,6 @@ class FoodTableViewController: UITableViewController ,ProtocolFoodView{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.isToolbarHidden = true
         dateasString = DateLoc
         dateFormatter.dateFormat = "EEE. dd MMMM, yyyy"
         let newDate = dateFormatter.date(from: dateasString)
@@ -141,6 +140,14 @@ class FoodTableViewController: UITableViewController ,ProtocolFoodView{
         return cell
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.isToolbarHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        navigationController?.isToolbarHidden = false
+    }
+    
     //Data Forward
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "AddItem"{
@@ -148,7 +155,6 @@ class FoodTableViewController: UITableViewController ,ProtocolFoodView{
             FoodViewController.delegate = self
             FoodViewController.ActionIdent = segue.identifier
             FoodViewController.FoodsH = FoodsH
-            navigationController?.isToolbarHidden = false
         }
         else if segue.identifier == "ShowDetail"
         {
@@ -157,11 +163,9 @@ class FoodTableViewController: UITableViewController ,ProtocolFoodView{
             let selectedMealCell = sender as? MealTableViewCell
             let indexPath = tableView.indexPath(for: selectedMealCell!)
             let selectedFood = Foods[(indexPath?.row)!]
-            
             FoodDetailViewController!.food = selectedFood
             FoodDetailViewController!.ActionIdent = segue.identifier
             FoodDetailViewController?.FoodsH = FoodsH
-            navigationController?.isToolbarHidden = false
         }
     }
     
