@@ -18,13 +18,25 @@ class DateTableViewController: UITableViewController {
     var currentDate = ""
     var userName: String = ""
     var Containing: Bool = false
-    var DirectoryURL = DateData.DocumentsDirectory.path.appending("\\FoodTracker")
+    var DirectoryURL = DateData.DocumentsDirectory
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.rightBarButtonItem = self.editButtonItem
         self.navigationItem.title = "Select a Date"
-        DirectoryURL = DirectoryURL.appending("\\".appending(userName))
+        let fileman = FileManager.default
+        let URL1 = DirectoryURL.appendingPathComponent("FoodTracker")
+        let URL2 = URL1.appendingPathComponent("Users")
+        let URL3 = URL2.appendingPathComponent(userName)
+        DirectoryURL = URL3
+        if !fileman.fileExists(atPath: DirectoryURL.path){
+            do{
+                try fileman.createDirectory(atPath: DirectoryURL.path, withIntermediateDirectories: true, attributes: nil)
+            } catch let error as NSError{
+                print("Error: \(error.localizedDescription)")
+            }
+        }
+        
         if let loadedDates = loadDates(){
             Dates = loadedDates
         }
@@ -100,18 +112,18 @@ class DateTableViewController: UITableViewController {
         if let FoodTableViewController = segue.destination as? FoodTableViewController{
             let selectedDateCell = sender as? DateTableViewCell
             let indexPath = tableView.indexPath(for: selectedDateCell!)
-            FoodTableViewController.UserLoc = userName
-            FoodTableViewController.DateLoc = Dates[indexPath!.row].date
+            FoodTableViewController.userName = userName
+            FoodTableViewController.Date = Dates[indexPath!.row].date
             saveDates()
         }
     }
     
     private func saveDates(){
-        NSKeyedArchiver.archiveRootObject(Dates, toFile: DirectoryURL)
+        NSKeyedArchiver.archiveRootObject(Dates, toFile: DirectoryURL.appendingPathComponent("Dates").path)
     }
     
     private func loadDates() -> [DateData]?{
-        return NSKeyedUnarchiver.unarchiveObject(withFile: DirectoryURL) as? [DateData]
+        return NSKeyedUnarchiver.unarchiveObject(withFile: DirectoryURL.appendingPathComponent("Dates").path) as? [DateData]
     }
 
 }

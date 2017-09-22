@@ -13,10 +13,11 @@ import UIKit
 class FoodTableViewController: UITableViewController ,ProtocolFoodView{
     var Foods = [Food]()
     var FoodsH = [Food]()
-    var UserLoc: String = ""
-    var DateLoc: String = ""
+    var userName: String = ""
+    var Date: String = ""
     var DynamicDirectoryURL: String = ""
-    var DirectoryURL: String = ""
+    let fileman = FileManager.default
+    var DirectoryURL = Food.DocumentsDirectory
     var dateasString: String = ""
     let dateFormatter = DateFormatter()
     var formattedDate: String = ""
@@ -82,18 +83,25 @@ class FoodTableViewController: UITableViewController ,ProtocolFoodView{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        dateasString = DateLoc
+        dateasString = Date
         dateFormatter.dateFormat = "EEE. dd MMMM, yyyy"
         let newDate = dateFormatter.date(from: dateasString)
         dateFormatter.dateFormat = "MMM d, yyyy"
         formattedDate = dateFormatter.string(from: newDate!)
         navigationItem.rightBarButtonItems?.append(editButtonItem)
-        navigationItem.title = "Food for ".appending(formattedDate)
-        DynamicDirectoryURL = DynamicDirectoryURL.appending("\\".appending("FoodTracker"))
-        DynamicDirectoryURL = DynamicDirectoryURL.appending("\\".appending(UserLoc))
-        DynamicDirectoryURL = DynamicDirectoryURL.appending("\\".appending(DateLoc))
-        DynamicDirectoryURL = DynamicDirectoryURL.appending("\\Foods")
-        DirectoryURL = Food.DocumentsDirectory.path.appending(DynamicDirectoryURL)
+        DirectoryURL = Food.DocumentsDirectory
+        let URL1 = DirectoryURL.appendingPathComponent("FoodTracker")
+        let URL2 = URL1.appendingPathComponent("Users")
+        let URL3 = URL2.appendingPathComponent(userName)
+        let URL4 = URL3.appendingPathComponent(Date)
+        DirectoryURL = URL4
+        if !fileman.fileExists(atPath: DirectoryURL.path){
+            do{
+                try fileman.createDirectory(atPath: DirectoryURL.path, withIntermediateDirectories: true, attributes: nil)
+            } catch let error as NSError{
+                print("Error: \(error.localizedDescription)")
+            }
+        }
         
         //([Food.DocumentsDirectory,"\\","FoodTracker","\\",UserLoc,"\\",DateLoc,"\\","Foods"])
         if let savedFoods = loadFoods(){
@@ -220,19 +228,19 @@ class FoodTableViewController: UITableViewController ,ProtocolFoodView{
     }
 
     private func saveFoods(){
-        NSKeyedArchiver.archiveRootObject(Foods, toFile: DirectoryURL)
+        NSKeyedArchiver.archiveRootObject(Foods, toFile: DirectoryURL.appendingPathComponent("Foods").path)
     }
     
     private func loadFoods() -> [Food]?{
-        return NSKeyedUnarchiver.unarchiveObject(withFile: DirectoryURL) as? [Food]
+        return NSKeyedUnarchiver.unarchiveObject(withFile: DirectoryURL.appendingPathComponent("Foods").path) as? [Food]
     }
     
     private func saveFoodsH(){
-        NSKeyedArchiver.archiveRootObject(FoodsH, toFile: DirectoryURL.appending("\\FoodsH"))
+        //NSKeyedArchiver.archiveRootObject(FoodsH, toFile: DirectoryURL.appending("\\FoodsH"))
     }
     
     private func loadFoodsH() -> [Food]?{
-        return NSKeyedUnarchiver.unarchiveObject(withFile: DirectoryURL.appending("\\FoodsH")) as? [Food]
+        return NSKeyedUnarchiver.unarchiveObject(withFile: DirectoryURL.path) as? [Food]
     }
     
 }

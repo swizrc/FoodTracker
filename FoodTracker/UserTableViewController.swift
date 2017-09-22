@@ -11,12 +11,23 @@ import UIKit
 class UserTableViewController: UITableViewController {
     
     var UserData = [UserIdentData]()
-    let DirectoryURL = UserIdentData.DocumentsDirectory.path.appending("\\FoodTracker")
+    var DirectoryURL = UserIdentData.DocumentsDirectory
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let fileman = FileManager.default
         self.navigationItem.rightBarButtonItem = self.editButtonItem
         self.navigationItem.title = "Select a User"
+        let URL1 = DirectoryURL.appendingPathComponent("FoodTracker")
+        let URL2 = URL1.appendingPathComponent("Users")
+        DirectoryURL = URL2
+        if !fileman.fileExists(atPath: DirectoryURL.path){
+            do{
+                try fileman.createDirectory(atPath: DirectoryURL.path, withIntermediateDirectories: true, attributes: nil)
+            } catch let error as NSError{
+                print("Error: \(error.localizedDescription)")
+            }
+        }
         if let loadedUsers = loadUsers(){
             UserData = loadedUsers
         }
@@ -129,12 +140,12 @@ class UserTableViewController: UITableViewController {
     
     private func saveUsers()
     {
-        NSKeyedArchiver.archiveRootObject(UserData, toFile: DirectoryURL)
+        NSKeyedArchiver.archiveRootObject(UserData, toFile: DirectoryURL.appendingPathComponent("Users").path)
     }
     
     private func loadUsers() -> [UserIdentData]?
     {
-        return NSKeyedUnarchiver.unarchiveObject(withFile: DirectoryURL) as? [UserIdentData]
+        return NSKeyedUnarchiver.unarchiveObject(withFile: DirectoryURL.appendingPathComponent("Users").path) as? [UserIdentData]
     }
 
 }
