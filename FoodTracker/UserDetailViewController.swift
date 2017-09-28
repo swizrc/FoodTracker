@@ -46,7 +46,7 @@ class UserDetailViewController: UIViewController, UITextFieldDelegate, UIImagePi
         dismiss(animated: true, completion: nil)
     }
 
-    func selectImageFromPhotoAlbum(sender: UITapGestureRecognizer? = nil) {
+    @objc func selectImageFromPhotoAlbum(sender: UITapGestureRecognizer? = nil) {
         userNameTextField.resignFirstResponder()
         let imagePickerController = UIImagePickerController()
         imagePickerController.sourceType = .savedPhotosAlbum

@@ -12,10 +12,10 @@ class UserTableViewController: UITableViewController {
     
     var UserData = [UserIdentData]()
     var DirectoryURL = UserIdentData.DocumentsDirectory
+    let fileman = FileManager.default
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let fileman = FileManager.default
         self.navigationItem.rightBarButtonItem = self.editButtonItem
         self.navigationItem.title = "Select a User"
         let URL1 = DirectoryURL.appendingPathComponent("FoodTracker")
@@ -30,6 +30,7 @@ class UserTableViewController: UITableViewController {
         }
         if let loadedUsers = loadUsers(){
             UserData = loadedUsers
+            
         }
         if UserData.isEmpty{
             self.performSegue(withIdentifier:"NewUser", sender: self)
@@ -83,6 +84,13 @@ class UserTableViewController: UITableViewController {
     {
             if editingStyle == .delete
             {
+                let Username = UserData[indexPath.row].user
+                let UserDir = DirectoryURL.appendingPathComponent(Username)
+                do{
+                    try fileman.removeItem(at: UserDir)
+                } catch let error{
+                    print("Error: \(error.localizedDescription)")
+                }
                 UserData.remove(at: indexPath.row)
                 tableView.deleteRows(at: [indexPath], with: .fade)
                 saveUsers()

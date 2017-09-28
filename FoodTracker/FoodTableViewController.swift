@@ -107,9 +107,6 @@ class FoodTableViewController: UITableViewController ,ProtocolFoodView{
         if let savedFoods = loadFoods(){
             Foods += savedFoods
         }
-        else{
-            loadSampleFood()
-        }
         if let savedFoodsH = loadFoodsH(){
             FoodsH = savedFoodsH
         }
@@ -163,6 +160,7 @@ class FoodTableViewController: UITableViewController ,ProtocolFoodView{
             FoodViewController.delegate = self
             FoodViewController.ActionIdent = segue.identifier
             FoodViewController.FoodsH = FoodsH
+            FoodViewController.formattedDate = formattedDate
         }
         else if segue.identifier == "ShowDetail"
         {
@@ -174,6 +172,7 @@ class FoodTableViewController: UITableViewController ,ProtocolFoodView{
             FoodDetailViewController!.food = selectedFood
             FoodDetailViewController!.ActionIdent = segue.identifier
             FoodDetailViewController?.FoodsH = FoodsH
+            FoodDetailViewController?.formattedDate = formattedDate
         }
     }
     
@@ -236,11 +235,11 @@ class FoodTableViewController: UITableViewController ,ProtocolFoodView{
     }
     
     private func saveFoodsH(){
-        //NSKeyedArchiver.archiveRootObject(FoodsH, toFile: DirectoryURL.appending("\\FoodsH"))
+        NSKeyedArchiver.archiveRootObject(FoodsH, toFile: Food.DocumentsDirectory.appendingPathComponent("FoodsH").path)
     }
     
     private func loadFoodsH() -> [Food]?{
-        return NSKeyedUnarchiver.unarchiveObject(withFile: DirectoryURL.path) as? [Food]
+        return NSKeyedUnarchiver.unarchiveObject(withFile: Food.DocumentsDirectory.appendingPathComponent("FoodsH").path) as? [Food]
     }
     
 }

@@ -19,12 +19,13 @@ class DateTableViewController: UITableViewController {
     var userName: String = ""
     var Containing: Bool = false
     var DirectoryURL = DateData.DocumentsDirectory
+    let fileman = FileManager.default
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.rightBarButtonItem = self.editButtonItem
         self.navigationItem.title = "Select a Date"
-        let fileman = FileManager.default
+        
         let URL1 = DirectoryURL.appendingPathComponent("FoodTracker")
         let URL2 = URL1.appendingPathComponent("Users")
         let URL3 = URL2.appendingPathComponent(userName)
@@ -85,7 +86,13 @@ class DateTableViewController: UITableViewController {
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            // Delete the row from the data source
+            let delDate = Dates[indexPath.row].date
+            let delDateDir = DirectoryURL.appendingPathComponent(delDate)
+            do{
+                try fileman.removeItem(at: delDateDir)
+            } catch let error{
+                print("Error: \(error.localizedDescription)")
+            }
             Dates.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
             saveDates()
