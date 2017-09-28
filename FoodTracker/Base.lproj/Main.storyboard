@@ -200,7 +200,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="xd3-Mk-94z">
-                                <rect key="frame" x="16" y="76" width="337" height="30"/>
+                                <rect key="frame" x="16" y="32" width="337" height="30"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Food Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wxB-mQ-UEC">
                                         <rect key="frame" x="0.0" y="0.0" width="337" height="30"/>
@@ -214,7 +214,7 @@
                                 </constraints>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="lsy-Nq-FrL">
-                                <rect key="frame" x="16" y="118" width="336" height="106"/>
+                                <rect key="frame" x="16" y="74" width="336" height="106"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ZUY-in-7sK">
                                         <rect key="frame" x="0.0" y="0.0" width="162" height="106"/>
@@ -666,6 +666,8 @@
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Zky-UI-LHK">
                                             <rect key="frame" x="0.0" y="0.0" width="106" height="85.5"/>
                                             <constraints>
+                                                <constraint firstAttribute="height" constant="85.5" id="EEC-dh-XIk"/>
+                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="106" id="IAe-sU-d0B"/>
                                                 <constraint firstAttribute="width" constant="106" id="ioG-X3-aPJ"/>
                                             </constraints>
                                         </imageView>
@@ -778,6 +780,6 @@
         <image name="defaultPhoto" width="640" height="480"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="8RQ-bd-gTq"/>
+        <segue reference="hWZ-1c-UJY"/>
     </inferredMetricsTieBreakers>
 </document>
