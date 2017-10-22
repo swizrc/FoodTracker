@@ -18,6 +18,8 @@ class FoodViewController: UIViewController , UITextFieldDelegate, UIImagePickerC
     //MARK: Properties
     @IBOutlet weak var nameTextField: UITextField!
 
+    @IBOutlet weak var savedLabel: UILabel!
+    @IBOutlet weak var popupView: UIView!
     @IBOutlet weak var imageJessMe: UIImageView!
     
     @IBOutlet weak var calorieTextField: UITextField!
@@ -64,6 +66,9 @@ class FoodViewController: UIViewController , UITextFieldDelegate, UIImagePickerC
         super.viewDidLoad()
         switchLabel.isHidden = false
         historySaveSwitch.isHidden = false
+        popupView.isHidden = true
+        popupView.layer.cornerRadius = 10
+        popupView.layer.masksToBounds = true
         if AddToHist == nil{
             AddToHist = true
         }
@@ -179,6 +184,10 @@ class FoodViewController: UIViewController , UITextFieldDelegate, UIImagePickerC
     @IBAction func cancelButton(_ sender: UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
     }
+    
+    func Update(){
+        UIView.animate(withDuration: 1.0, delay: 0.0, options: UIViewAnimationOptions.curveEaseIn, animations: {self.popupView.alpha = 0.0}, completion: nil)
+    }
 
     //Outgoing info
     @IBAction func saveButton(_ sender: UIBarButtonItem) {
@@ -217,6 +226,9 @@ class FoodViewController: UIViewController , UITextFieldDelegate, UIImagePickerC
                 self.performSegue(withIdentifier: "DetailtoTable", sender: self)
             }
             Unique = true
+            popupView.isHidden = false
+            popupView.alpha = 1.0
+            Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(Update), userInfo: nil, repeats: false)
         }
     }
 }
