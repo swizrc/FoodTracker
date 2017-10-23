@@ -99,7 +99,7 @@ class FoodHistoryTableViewController: UITableViewController {
         
         return cell
     }
-    //Outoing information
+    //Outgoing information
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if Action == "AddItem" || Action == "ShowDetail"{
             let FoodViewController: FoodViewController = segue.destination as! FoodViewController
@@ -120,8 +120,6 @@ class FoodHistoryTableViewController: UITableViewController {
         return true
     }
     
-    
-    
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
@@ -132,24 +130,12 @@ class FoodHistoryTableViewController: UITableViewController {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }
     }
-    //Incoming Data
+    //Outgoing Data
     
     //Don't think this will work since we are not ever unwinding to history?
     //Well, Swift will look for this unwind even when executed elsewhere, use this to implement the Uniqueness
     //functionality
-    @IBAction func unwindToFoodView(sender: UIStoryboardSegue){
-        if let sourceViewController = sender.source as? FoodViewController, let food = sourceViewController.food{
-            if let selectedIndexPath = tableView.indexPathForSelectedRow{
-                FoodsH[selectedIndexPath.row] = food
-                tableView.reloadRows(at: [selectedIndexPath], with: .none)
-            }
-            else{
-                let newIndexpath = IndexPath(row: 0,section:0)
-                FoodsH.append(food)
-                tableView.insertRows(at: [newIndexpath], with: .automatic)
-            }
-        }
-    }
+
     
     /*
      // Override to support rearranging the table view.

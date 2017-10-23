@@ -179,7 +179,6 @@ class FoodViewController: UIViewController , UITextFieldDelegate, UIImagePickerC
         }
     }
 
-
     //DEPRECATED
     @IBAction func cancelButton(_ sender: UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
@@ -189,6 +188,20 @@ class FoodViewController: UIViewController , UITextFieldDelegate, UIImagePickerC
         UIView.animate(withDuration: 1.0, delay: 0.0, options: UIViewAnimationOptions.curveEaseIn, animations: {self.popupView.alpha = 0.0}, completion: nil)
     }
 
+    @IBAction func unwindToFoodView(sender: UIStoryboardSegue){
+        if let sourceViewController = sender.source as? FoodViewController, let food = sourceViewController.food{
+            if let selectedIndexPath = tableView.indexPathForSelectedRow{
+                FoodsH[selectedIndexPath.row] = food
+                tableView.reloadRows(at: [selectedIndexPath], with: .none)
+            }
+            else{
+                let newIndexpath = IndexPath(row: 0,section:0)
+                FoodsH.append(food)
+                tableView.insertRows(at: [newIndexpath], with: .automatic)
+            }
+        }
+    }
+    
     //Outgoing info
     @IBAction func saveButton(_ sender: UIBarButtonItem) {
         if !(nameTextField.text?.isEmpty)! && imageJessMe != nil && !(calorieTextField.text?.isEmpty)! && !(proteinTextField.text?.isEmpty)! && !(quantityTextField.text?.isEmpty)! && !(servingquantityTextField.text?.isEmpty)! && !(servingunitTextField.text?.isEmpty)!{
