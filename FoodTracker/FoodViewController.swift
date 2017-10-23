@@ -56,10 +56,38 @@ class FoodViewController: UIViewController , UITextFieldDelegate, UIImagePickerC
         historySaveSwitch.isHidden = true
     }
     
-    //replace
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        if ActionIdent == "AddItem"{
+            saveButton.tintColor = UIColor.lightGray
+            navigationItem.title = "Add a Food Item"}
+        else if ActionIdent == "ShowDetail" || ActionIdent == "EditItemFromHistory"{
+            navigationItem.title = "Edit Food Item"
+        }
+        else if ActionIdent == "ShowDetailHistory"{
+            navigationItem.title = "Edit History Item"
+        }
+        else if ActionIdent == "AddItemFromHistory"{
+            navigationItem.title = "Add from History"
+            HideHist()
+        }
+        if food != nil{
+            nameTextField.text = food!.name
+            imageJessMe.image = food!.photo
+            calorieTextField.text = String(food!.calories)
+            proteinTextField.text = String(food!.protein)
+            quantityTextField.text = String(food!.quantity)
+            servingunitTextField.text = food!.serving_unit
+            servingquantityTextField.text = String(food!.serving_quantity)
+        }
+        if !(nameTextField.text?.isEmpty)! && imageJessMe != nil && !(calorieTextField.text?.isEmpty)! && !(proteinTextField.text?.isEmpty)! && !(quantityTextField.text?.isEmpty)! && !(servingquantityTextField.text?.isEmpty)! && !(servingunitTextField.text?.isEmpty)!
+        {
+            saveButton.tintColor = DefColor
+        }
+        else
+        {
+            saveButton.tintColor = UIColor.lightGray
+        }
     }
     
     override func viewDidLoad() {
@@ -82,34 +110,15 @@ class FoodViewController: UIViewController , UITextFieldDelegate, UIImagePickerC
         servingquantityTextField.delegate = self
         servingunitTextField.delegate = self
         DefColor = saveButton.tintColor
-        if ActionIdent == "AddItem"{
-            saveButton.tintColor = UIColor.lightGray
-            navigationItem.title = "Add a Food Item"}
-        else if ActionIdent == "ShowDetail" || ActionIdent == "EditItemFromHistory"{
-            navigationItem.title = "Edit Food Item"
-            }
-        else if ActionIdent == "ShowDetailHistory"{
-            navigationItem.title = "Edit History Item"
-            }
-        else if ActionIdent == "AddItemFromHistory"{
-            navigationItem.title = "Add from History"
-            HideHist()
-        }
-        if food != nil{
-            nameTextField.text = food!.name
-            imageJessMe.image = food!.photo
-            calorieTextField.text = String(food!.calories)
-            proteinTextField.text = String(food!.protein)
-            quantityTextField.text = String(food!.quantity)
-            servingunitTextField.text = food!.serving_unit
-            servingquantityTextField.text = String(food!.serving_quantity)
-        }
+
         addDoneButtonOnNumpad(textField: calorieTextField)
         addDoneButtonOnNumpad(textField: proteinTextField)
         addDoneButtonOnNumpad(textField: quantityTextField)
         addDoneButtonOnNumpad(textField: servingquantityTextField)
     }
 
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -125,7 +134,6 @@ class FoodViewController: UIViewController , UITextFieldDelegate, UIImagePickerC
         if !(nameTextField.text?.isEmpty)! && imageJessMe != nil && !(calorieTextField.text?.isEmpty)! && !(proteinTextField.text?.isEmpty)! && !(quantityTextField.text?.isEmpty)! && !(servingquantityTextField.text?.isEmpty)! && !(servingunitTextField.text?.isEmpty)!
         {
             saveButton.tintColor = DefColor
-            
         }
         else
          {
@@ -189,17 +197,7 @@ class FoodViewController: UIViewController , UITextFieldDelegate, UIImagePickerC
     }
 
     @IBAction func unwindToFoodView(sender: UIStoryboardSegue){
-        if let sourceViewController = sender.source as? FoodViewController, let food = sourceViewController.food{
-            if let selectedIndexPath = tableView.indexPathForSelectedRow{
-                FoodsH[selectedIndexPath.row] = food
-                tableView.reloadRows(at: [selectedIndexPath], with: .none)
-            }
-            else{
-                let newIndexpath = IndexPath(row: 0,section:0)
-                FoodsH.append(food)
-                tableView.insertRows(at: [newIndexpath], with: .automatic)
-            }
-        }
+        
     }
     
     //Outgoing info

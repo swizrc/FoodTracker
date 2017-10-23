@@ -17,7 +17,6 @@ class FoodHistoryTableViewController: UITableViewController {
     var FoodsH = [Food]()
     var delegate:ProtocolHistoryView?
     var Date: String = ""
-    
     var Action: String = ""
     
     //Incoming action from FoodViewController
@@ -41,22 +40,6 @@ class FoodHistoryTableViewController: UITableViewController {
             tableView.reloadRows(at: [selectedIndexPath!], with: .none)
         }
     }*/
-    
-    private func loadSampleFood(){
-        
-        let photo1 = UIImage(named: "chicken-breast")
-        let photo2 = UIImage(named: "eggs-pan")
-        
-        guard let food1 = Food (name: "Chicken Breast",photo: photo1, calories: 86,protein: 16,quantity: 1, serving_unit: "Breast", serving_quantity: 1)
-            else{
-                fatalError("Unable to food1")
-        }
-        guard let food2 = Food (name: "Egg", photo:photo2, calories: 70, protein: 6, quantity: 3,serving_unit: "Egg", serving_quantity: 1)
-            else{
-                fatalError("Unable to food2")}
-        FoodsH += [food1,food2]
-    }
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -130,7 +113,7 @@ class FoodHistoryTableViewController: UITableViewController {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }
     }
-    //Outgoing Data
+    //Incoming Data
     
     //Don't think this will work since we are not ever unwinding to history?
     //Well, Swift will look for this unwind even when executed elsewhere, use this to implement the Uniqueness
